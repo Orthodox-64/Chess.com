@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chessboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-       .chessboard {
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
-    grid-template-rows: repeat(8, minmax(0, 1fr)) !important;
-    width: 400px !important;
-    height: 400px !important;
-    transform: rotate(0deg);
-}
+ .chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            grid-template-rows: repeat(8, minmax(0, 1fr));
+            width: 400px;
+            height: 400px;
+            transform: rotate(0deg);
+        }
 
         .piece.white {
-            color: white;
-            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 1));
+            color: white !important;
         }
 
         .piece.black {
-            color: black;
+            color: black !important;
         }
 
         .flipped {
@@ -51,9 +50,6 @@
             cursor: grab;
         }
 
-        .dragging {
-            opacity: 0.5;
-        }
 
         /* Rotate pieces for black player */
         .flipped .piece {
@@ -63,14 +59,29 @@
 </head>
 <body>
     <div class="w-full h-screen flex items-center justify-center bg-zinc-900">
-        <div class="chessboard w-96 h-96 bg-red-600"></div>
+        <div class="chessboard">
+            <!-- Dynamically create squares -->
+            <script>
+                const chessboard = document.querySelector('.chessboard');
+                for (let row = 0; row < 8; row++) {
+                    for (let col = 0; col < 8; col++) {
+                        const square = document.createElement('div');
+                        square.classList.add('square');
+                        // Determine if the square is light or dark
+                        if ((row + col) % 2 === 0) {
+                            square.classList.add('light');
+                        } else {
+                            square.classList.add('dark');
+                        }
+                        chessboard.appendChild(square);
+                    }
+                }
+            </script>
+        </div>
     </div>
-
-
-
 
     <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/js/chessgame.js"></script>
+    <script src="/js/chessgame.js"></script>
 </body>
 </html>
